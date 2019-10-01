@@ -16,5 +16,21 @@
         <property name="serverTimezone" value="America/Edmonton" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="healthy/Hibernate" uuid="d9be008a-ba51-4087-aefa-2ceb74ec2d8f">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/healthy</jdbc-url>
+      <driver-properties>
+        <property name="autoReconnect" value="true" />
+        <property name="yearIsDateType" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="zeroDateTimeBehavior" value="CONVERT_TO_NULL" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="serverTimezone" value="America/Edmonton" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>
