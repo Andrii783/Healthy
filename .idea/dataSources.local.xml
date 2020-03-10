@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="healthy" uuid="89504edb-c93f-4cd0-9f7c-daf869f1bda7">
-      <database-info product="MySQL" version="8.0.11" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.11" exact-driver-version="8.0">
+      <database-info product="MySQL" version="8.0.19" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.19" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
@@ -14,12 +14,13 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="healthy/Hibernate" uuid="d9be008a-ba51-4087-aefa-2ceb74ec2d8f">
-      <database-info product="MySQL" version="8.0.11" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.11" exact-driver-version="8.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
+    <data-source name="healthy/Hibernate" uuid="168ec87d-6f5d-4048-996a-ffde31ab334f">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <user-name>root</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="healthy/Hibernate" uuid="b678f1a8-30b3-4534-9989-22dde957f399">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <user-name>root</user-name>
       <schema-mapping />
     </data-source>

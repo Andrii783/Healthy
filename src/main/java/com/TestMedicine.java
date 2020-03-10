@@ -38,7 +38,7 @@ public class TestMedicine {
         address.setClient(client);
         client.setAddress(address);
         clientService.save(client);
-//        doctorService.save(doctor);
+       // doctorService.save(doctor);
         //doctorService.removeById (doctor);
 
     }
