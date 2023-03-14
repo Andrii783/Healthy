@@ -20,7 +20,7 @@ public class Address {
     private int appartment;
 
     @Column(name = "private_sector")
-    private boolean privateSector;
+    private boolean isPrivateSector;
 
     //25.08.2018
     @Enumerated(EnumType.STRING)
@@ -30,15 +30,27 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private Client client;
 
-    public Address(String street, int build, int appartment, boolean privateSector, City city) {
+    public Address(String street, int build, int appartment, boolean isPrivateSector, City city) {
         this.street = street;
         this.build = build;
         this.appartment = appartment;
-        this.privateSector = privateSector;
+        this.isPrivateSector = isPrivateSector;
         this.city = city;
     }
 
     public Address() {
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Client getClient() {
+        return client;
     }
 
     public void setClient(Client client) {
@@ -78,10 +90,10 @@ public class Address {
     }
 
     public boolean isPrivateSector() {
-        return privateSector;
+        return isPrivateSector;
     }
 
     public void setPrivateSector(boolean privateSector) {
-        this.privateSector = privateSector;
+        isPrivateSector = privateSector;
     }
 }

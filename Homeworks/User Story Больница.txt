@@ -18,13 +18,19 @@ enum - категория врача, больница, город)
 
 Suggestions
 
-1) Git
-2) All objects of enum in uppercase
-3) Remove extra setter/getter
-4) Отчетность, форма
 5) email, sms - что будет отправляться и subject не срочно
-6) Phone like String
-7) Field dateOfBirth of Doctor change datatype to LocalDate
 
-25.01.19
-1) use AbstractService on all services
+19.11.20
+5) +Create gmails       ss2472217@gmail.com      Password: SergeySergey
+
+02.01.2021
+1) manyToOne Ticket Doctor
+2) ItextPDF
+3) Отчетность, форма
+4) Remove extra setter/getter
+5) Add .gitignore
+6) url naming convention
+7) JSON on save all entities
+
+
+

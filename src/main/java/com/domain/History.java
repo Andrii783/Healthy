@@ -10,16 +10,31 @@ public class History {
     @Column(name = "history_id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "history_doctor_fk_id")
     private Doctor doctor;
 
+    @ManyToOne
+    @JoinColumn(name = "client_fk_id")
+    private Client client;
+
     private String result;
 
+    public History(){
+
+    }
 
     public History(Doctor doctor, String result) {
         this.doctor = doctor;
         this.result = result;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public int getId() {return id;}

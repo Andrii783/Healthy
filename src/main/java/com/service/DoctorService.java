@@ -1,5 +1,6 @@
 package com.service;
 
+import com.dao.DoctorDAO;
 import com.domain.Doctor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,11 +11,19 @@ import javax.persistence.*;
 @Transactional
 public class DoctorService implements AbstractService<Doctor> {
 
+    private final DoctorDAO doctorDAO;
+
+    public DoctorService(DoctorDAO doctorDAO) {
+        this.doctorDAO = doctorDAO;
+    }
+
     @PersistenceUnit
     private EntityManagerFactory factory;
 
     @PersistenceContext
     private EntityManager em;
+
+
 
     public void saveFactory(Doctor doctor) {
         EntityManager em = factory.createEntityManager();
@@ -29,25 +38,20 @@ public class DoctorService implements AbstractService<Doctor> {
     }
 
     public void save(Doctor doctor) {
-        em.persist(doctor);
+        doctorDAO.save(doctor);
     }
 
-
     public void removeById(int id) {
-        Doctor removeDoc = em.getReference(Doctor.class, id);
-        em.remove(removeDoc);
-
-        /*Query query = em.createQuery("DELETE FROM Doctor d WHERE d.id = :tempId");
-
-        query.setParameter("tempId", id);
-
-        query.executeUpdate();*/
-
+        doctorDAO.removeById(id);
     }
 
     public void update(Doctor doctor) {
-        Doctor mergedDoctor = em.merge(doctor);
-        em.persist(mergedDoctor);
+        doctorDAO.update(doctor);
+    }
+
+    @Override
+    public Doctor getById(int id) {
+        return doctorDAO.getById(id);
     }
 
 }

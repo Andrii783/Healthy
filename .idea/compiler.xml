@@ -10,7 +10,7 @@
         <module name="Healthy" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="Healthy" target="8" />
     </bytecodeTargetLevel>
   </component>

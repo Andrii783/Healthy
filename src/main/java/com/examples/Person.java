@@ -47,26 +47,3 @@ public class Person {
     }
 }
 
-class TestPerson {
-    public static void main(String[] args) {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("healthy");
-
-            EntityManager em = factory.createEntityManager();
-
-        EntityTransaction transaction = em.getTransaction();
-
-        transaction.begin();
-
-        NewGender gender = NewGender.MAN;
-
-        Person person = new Person("John", gender);
-
-        //em.persist(person);
-
-        Person person1 = em.find(Person.class, 1);
-
-        transaction.commit();
-
-        em.close();
-    }
-}

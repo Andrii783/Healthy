@@ -7,27 +7,36 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = "com")
+@ComponentScan(basePackages = {"com.controller", "com.dao", "com.service"})
 @EnableTransactionManagement
+//@EnableWebMvc
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-public class ConfigApp {
+public class ConfigApp implements WebMvcConfigurer {
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
-        JpaTransactionManager manager = new JpaTransactionManager(factory);
+    public PlatformTransactionManager transactionManager(EntityManagerFactory factory, DataSource dataSource) {
+        JpaTransactionManager manager = new JpaTransactionManager();
 
-        manager.setDataSource(dataSource());
+        manager.setDataSource(dataSource);
+        manager.setEntityManagerFactory(factory);
 
         return manager;
     }
@@ -38,11 +47,11 @@ public class ConfigApp {
     }
 
     @Bean
-    public LocalEntityManagerFactoryBean entityManagerFactory() {
-        LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
-//        emfb.setJpaVendorAdapter(jpaVendorAdapter());
-        emfb.setPersistenceUnitName("healthy");
-
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+        LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
+        emfb.setDataSource(dataSource);
+        emfb.setJpaVendorAdapter(jpaVendorAdapter());
+        emfb.setPackagesToScan("com.domain");
         return emfb;
     }
 
@@ -50,9 +59,9 @@ public class ConfigApp {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-        dataSource.setUrl("jdbc:mysql://localhost:3306/healthy");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/healthy?characterEncoding=latin1&serverTimezone=Europe/Kiev");
 
         dataSource.setUsername("root");
 
@@ -66,9 +75,38 @@ public class ConfigApp {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.MYSQL);
         adapter.setShowSql(true);
-        adapter.setDatabasePlatform("org.hibernate.dialect.MySQL55Dialect");
+//        adapter.setDatabasePlatform("org.hibernate.dialect.MySQL55Dialect");
         adapter.setGenerateDdl(true);
 
         return adapter;
     }
+
+   //
+//    @Bean
+//    public ViewResolver internalResourceViewResolver() {
+//        InternalResourceViewResolver bean = new InternalResourceViewResolver();
+//        bean.setViewClass(JstlView.class);
+//        bean.setPrefix("/WEB-INF/view/");
+//        bean.setSuffix(".jsp");
+//        return bean;
+//    }
+
+
+   /* @Bean
+    public UrlBasedViewResolver setupViewResolver() {
+        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        resolver.setViewClass(JstlView.class);
+        resolver.setOrder(1);
+        return resolver;
+    } */
+
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver() {
+//        return new CommonsMultipartResolver();
+//    }
+
+
+
 }

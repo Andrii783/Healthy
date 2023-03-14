@@ -1,5 +1,6 @@
 package com.domain;
 
 public enum Profile {
-    Dentist, Therapist
+    DENTIST,
+    THERAPIST
 }

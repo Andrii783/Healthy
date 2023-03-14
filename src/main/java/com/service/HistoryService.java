@@ -1,5 +1,7 @@
 package com.service;
 
+import com.dao.HistoryDAO;
+import com.domain.Address;
 import com.domain.History;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,31 +11,36 @@ import javax.persistence.PersistenceContext;
 
 @Service
 @Transactional
-public class HistoryService implements AbstractService <History>{
-
- //   @PersistenceUnit
- //   private EntityManagerFactory factory;
-
+public class HistoryService implements AbstractService<History> {
     @PersistenceContext
     private EntityManager em;
 
+
+    //   @PersistenceUnit
+    //   private EntityManagerFactory factory;
+
+    private final HistoryDAO historyDAO;
+
+    public HistoryService(HistoryDAO historyDAO) {
+        this.historyDAO = historyDAO;
+    }
+
     public void save(History history) {
-
-        em.persist(history);
-
+        historyDAO.save(history);
     }
 
     @Override
     public void removeById(int id) {
-        History removeHistory = em.getReference(History.class, id);
-        em.remove(removeHistory);
+        historyDAO.removeById(id);
     }
 
     @Override
     public void update(History history) {
-        History mergedHistory = em.merge(history);
-        em.persist(mergedHistory);
+        historyDAO.update(history);
     }
 
-
+    @Override
+    public History getById(int id) {
+        return historyDAO.getById(id);
+    }
 }

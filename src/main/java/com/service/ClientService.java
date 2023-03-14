@@ -1,22 +1,26 @@
 package com.service;
 
+import com.dao.ClientDAO;
 import com.domain.Client;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Service
 @Transactional
 public class ClientService implements AbstractService<Client> {
 
+    private final ClientDAO clientDAO;
+
+    public ClientService(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
+    }
+
     @PersistenceUnit
     private EntityManagerFactory factory;
 
-    @PersistenceContext
-    private EntityManager em;
-
-    public void saveFactory(Client client) {
+    /*public void saveFactory(Client client) {
         EntityManager em = factory.createEntityManager();
 
         EntityTransaction tran = em.getTransaction();
@@ -26,27 +30,25 @@ public class ClientService implements AbstractService<Client> {
         em.persist(client);
 
         tran.commit();
-    }
+    }*/
+
 
     public void save(Client client) {
-
-        //Doctor doc = em.getReference(Doctor.class, 4);
-
-       // em.removeById(doc);
-
-        //em.persist(client);
-
-        em.persist(client);
-
+        clientDAO.save(client);
     }
+
     public void removeById(int id) {
-        Client removeClient = em.getReference(Client.class, id);
-        em.remove(removeClient);
+        clientDAO.removeById(id);
     }
 
     public void update(Client client) {
-        Client updateClient = em.getReference(Client.class, client.getId());
-        em.remove(updateClient);
-        em.persist(client);
+
+        clientDAO.update(client);
+    }
+
+    @Override
+    public Client getById(int id) {
+
+        return clientDAO.getById(id);
     }
 }

@@ -1,5 +1,8 @@
 package com.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,6 +14,7 @@ public class Ticket {
     @Column(name = "ticket_id")
     private int id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm a", shape = JsonFormat.Shape.STRING)//2020-12-03 05:13 PM
     @Column(name = "ticket_date")
     private LocalDateTime ticketDate;
 
@@ -18,23 +22,28 @@ public class Ticket {
     @JoinColumn (name = "ticket_doctor_fk_id")
     private Doctor doctor;
 
+    @ManyToOne
+    @JoinColumn(name = "client_fk_id")
+    private Client client;
+
     @Enumerated(EnumType.STRING)
     private Polyclinic polyclinic;
 
     @Column(name = "cabinet_number")
     private int cabinetNumber;
 
-    private boolean free;
+    @JsonProperty("free")
+    private boolean isFree;
 
     @Enumerated(EnumType.STRING)
     private Service service;
 
     public Ticket(LocalDateTime ticketDate, Polyclinic polyclinic,
-                  int cabinetNumber, boolean free, Service service) {
+                  int cabinetNumber, boolean isFree, Service service) {
         this.ticketDate = ticketDate;
         this.polyclinic = polyclinic;
         this.cabinetNumber = cabinetNumber;
-        this.free = free;
+        this.isFree = isFree;
         this.service = service;
     }
 
@@ -61,9 +70,21 @@ public class Ticket {
 
     public void setCabinetNumber(int cabinetNumber) {this.cabinetNumber = cabinetNumber;}
 
-    public boolean isFree() {return free;}
+    public Client getClient() {
+        return client;
+    }
 
-    public void setFree(boolean free) {this.free = free;}
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public void setFree(boolean free) {
+        isFree = free;
+    }
 
     public Service getService() {return service;}
 
