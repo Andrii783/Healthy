@@ -56,6 +56,6 @@ public class TestMedicine {
         clientService.save(client);
         doctorService.save(doctor);
         //doctorService.removeById z(doctor);    */
-
+System.out.print("select * from client");
     }
 }
